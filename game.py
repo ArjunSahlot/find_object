@@ -26,8 +26,8 @@ import cv2
 import numpy as np
 import six.moves.urllib as urllib
 import tensorflow as tf
-from Find_Object.models.research.object_detection.utils import label_map_util
-from Find_Object.models.research.object_detection.utils import visualization_utils as vis_util
+from models.research.object_detection.utils import label_map_util
+from models.research.object_detection.utils import visualization_utils as vis_util
 
 print("The game will start in about 2 minutes. Get Ready!")
 
