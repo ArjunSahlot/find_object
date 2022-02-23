@@ -29,6 +29,7 @@ from utils import label_map_util
 from utils import visualization_utils as vis_util
 
 print("The game will start soon. Get Ready!")
+print("Press 'Q' once the window is open if you want the game to stop.")
 
 PARENT = os.path.dirname(__file__)
 PATH = os.path.join(PARENT, "utils")
@@ -70,7 +71,7 @@ cap = cv2.VideoCapture(0)
 MODEL_NAME = "ssd_mobilenet_v1_coco_11_06_2017"
 MODEL_FILE = MODEL_NAME + ".tar.gz"
 
-PATH_TO_CKPT = os.path.join(PATH, MODEL_NAME, "frozen_inference_graph.pb")
+PATH_TO_CKPT = os.path.join(PATH, "frozen_inference_graph.pb")
 
 PATH_TO_LABELS = os.path.join(PATH, "mscoco_label_map.pbtxt")
 
