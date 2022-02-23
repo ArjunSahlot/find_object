@@ -24,15 +24,14 @@ import random
 
 import cv2
 import numpy as np
-import six.moves.urllib as urllib
 import tensorflow as tf
-from models.research.object_detection.utils import label_map_util
-from models.research.object_detection.utils import visualization_utils as vis_util
+from utils import label_map_util
+from utils import visualization_utils as vis_util
 
 print("The game will start soon. Get Ready!")
 
 PARENT = os.path.dirname(__file__)
-PATH = os.path.join(PARENT, "models", "research", "object_detection")
+PATH = os.path.join(PARENT, "utils")
 
 
 objects = [
@@ -64,33 +63,23 @@ objects = [
     "tv",
     "cup",
 ]
+print(f"Possible objects: {', '.join(objects)}")
 
 cap = cv2.VideoCapture(0)
 
 MODEL_NAME = "ssd_mobilenet_v1_coco_11_06_2017"
 MODEL_FILE = MODEL_NAME + ".tar.gz"
-DOWNLOAD_BASE = "http://download.tensorflow.org/models/object_detection/"
 
 PATH_TO_CKPT = os.path.join(PATH, MODEL_NAME, "frozen_inference_graph.pb")
 
-PATH_TO_LABELS = os.path.join(PATH, "data", "mscoco_label_map.pbtxt")
+PATH_TO_LABELS = os.path.join(PATH, "mscoco_label_map.pbtxt")
 
 NUM_CLASSES = 90
-
-
-opener = urllib.request.URLopener()
-opener.retrieve(DOWNLOAD_BASE + MODEL_FILE, os.path.join(PATH, MODEL_FILE))
-tar_file = tarfile.open(os.path.join(PATH, MODEL_FILE))
-for file in tar_file.getmembers():
-    file_name = os.path.basename(file.name)
-    if "frozen_inference_graph.pb" in file_name:
-        tar_file.extract(file, PATH)
 
 
 detection_graph = tf.Graph()
 with detection_graph.as_default():
     od_graph_def = tf.compat.v1.GraphDef()
-    print(PATH_TO_CKPT)
     with tf.compat.v1.gfile.GFile(PATH_TO_CKPT, "rb") as fid:
         serialized_graph = fid.read()
         od_graph_def.ParseFromString(serialized_graph)
